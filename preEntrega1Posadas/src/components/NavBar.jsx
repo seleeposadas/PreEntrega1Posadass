@@ -20,8 +20,7 @@ const NavBar = () => {
         >
           <Grid item xs={2}>
             <>
-              {" "}
-              <img src={Logo} alt="Logo de la empresa" width="50px" />
+              <img src={Logo} alt="Logo Viceada Cosmica" width="50px" />
             </>
           </Grid>
           <Grid item xs={8}>
