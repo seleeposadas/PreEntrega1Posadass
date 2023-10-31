@@ -1,14 +1,13 @@
-import {NavBar} from './components/NavBar';
-import { ItemListContainer } from './components/ItemListContainer';
+import NavBar from "./components/NavBar";
+import { ItemListContainer } from "./components/ItemListContainer";
 
 function App() {
-
   return (
-  <>
-    <NavBar/>
-    <ItemListContainer greeting = "Hola"/>
-  </>  
+    <>
+      <NavBar />
+      <ItemListContainer greeting="GET READY TO ENJOY GAMES" />
+    </>
   );
 }
 
-export default App
+export default App;
