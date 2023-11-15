@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import CartWidget from "./CartWidget";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -5,6 +7,22 @@ import { Link, Box } from "@mui/material";
 import Logo from "../assets/LOGO_TIENDA_n.png";
 
 const NavBar = () => {
+  const [uniqueCategories, setUniqueCategories] = useState([]);
+
+  useEffect(() => {
+    const url = 'https://fakestoreapi.com/products/';
+
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        const products = data;
+        const categories = products.map((item) => item.category);
+        const uniqueCategories = [...new Set(categories)];
+        setUniqueCategories(uniqueCategories);
+      })
+      .catch(error => console.error("Error al obtener datos", error));
+  }, []); 
+
   return (
     <>
       <Container>
@@ -19,9 +37,7 @@ const NavBar = () => {
           }}
         >
           <Grid item xs={2}>
-            <>
-              <img src={Logo} alt="Logo Viceada Cosmica" width="50px" />
-            </>
+            <NavLink to="/"><img src={Logo} alt="Logo Viceada Cosmica" width="50px" /></NavLink>
           </Grid>
           <Grid item xs={8}>
             <nav>
@@ -33,36 +49,20 @@ const NavBar = () => {
                   justifyContent: "center",
                 }}
               >
-                <Link
-                  href="#"
-                  sx={{
-                    color: "text.primary",
-                    marginRight: 2,
-                    textDecoration: "none",
-                  }}
-                >
-                  PlayStation
-                </Link>
-                <Link
-                  href="#"
-                  sx={{
-                    color: "text.primary",
-                    marginRight: 2,
-                    textDecoration: "none",
-                  }}
-                >
-                  Xbox
-                </Link>
-                <Link
-                  href="#"
-                  sx={{
-                    color: "text.primary",
-                    marginRight: 2,
-                    textDecoration: "none",
-                  }}
-                >
-                  Retro Gamer
-                </Link>
+                {uniqueCategories.map(item => (
+                  <Link
+                    as={NavLink}
+                    key={item}
+                    sx={{
+                      color: "text.primary",
+                      marginRight: 2,
+                      textDecoration: "none",
+                    }}
+                    to={`/category/${item}`}
+                  >
+                    {item}
+                  </Link>
+                ))}
               </Box>
             </nav>
           </Grid>
